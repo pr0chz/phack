@@ -10,4 +10,4 @@ COPY . /app
 
 ENTRYPOINT [ "python" ]
 
-CMD [ "task2.py" ]
+CMD [ "server.py" ]
