@@ -2,6 +2,7 @@
 
 # Inspired by snippet written by Nathan Hamiel (2010)
 import json
+import os
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from optparse import OptionParser
 from task2 import compute_func
@@ -17,7 +18,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         return   
 
 def main():
-    port = 8080
+    port = int(os.environ["PORT"])
     print('Listening on localhost:%s' % port)
     server = HTTPServer(('', port), RequestHandler)
     server.serve_forever()
