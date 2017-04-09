@@ -4,19 +4,28 @@ from sklearn.linear_model import LogisticRegression
 import json
 import sys
 
-input = json.loads(sys.stdin.read())
+def compute_func(input):
+    m = pd.DataFrame(input['measurements'])
+    s = pd.DataFrame(input['samples'])
 
-m = pd.DataFrame(input['measurements'])
-s = pd.DataFrame(input['samples'])
+    fields = ['brake-distance', 'noise-level', 'vibrations']
 
-fields = ['brake-distance', 'noise-level', 'vibrations']
+    model = LogisticRegression()
+    model.fit(m[fields], m['type'])
 
-model = LogisticRegression()
-model.fit(m[fields], m['type'])
+    s['type'] = model.predict(s[fields])
 
-s['type'] = model.predict(s[fields])
+    result = s[['id', 'type']].to_dict(orient="records")
+    result = json.dumps({"result": result})
+    return result
 
-result = s[['id', 'type']].to_dict(orient="records")
-result = json.dumps({"result": result})
+if __name__ == '__main__':
+    # service.py executed as script
+    # do something
+    if len(sys.argv) > 1:
+      args = sys.argv[1]
+    else:
+      args = json.loads(sys.stdin.read())
 
-print(result)
+    print(compute_func(args))
+
