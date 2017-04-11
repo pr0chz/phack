@@ -76,16 +76,14 @@ object HubStar {
     (nodeCount, offers)
   }
 
-  def main(args: Array[String]): Unit = {
-    val (nodeCount, offers) = fromJson(Source.stdin.mkString)
-
+  def compute(input: String): String = {
+    val (nodeCount, offers) = fromJson(input)
     val graph = buildGraph(offers)
 
-    val result = findStar(nodeCount, graph)
-        .map { case (cost, edges, root) => toJson(cost, edges, root) }
-        .getOrElse(notFeasible)
-
-    println(result)
+    findStar(nodeCount, graph)
+      .map { case (cost, edges, root) => toJson(cost, edges, root) }
+      .getOrElse(notFeasible)
   }
 
+  def main(args: Array[String]): Unit = println(compute(Source.stdin.mkString))
 }
