@@ -1,14 +1,7 @@
-FROM 1science/sbt:0.13.8-oracle-jre-8
+FROM openjdk:8-jre
 
-MAINTAINER code.vire@gmail.com
+COPY target/scala-2.11/task1-assembly-1.0.jar .
 
-WORKDIR /app
+CMD ["java", "-jar", "task1-assembly-1.0.jar"]
 
-RUN sbt update
-
-COPY . /app
-
-RUN sbt compile
-
-CMD [ "sbt", "run"]
 
