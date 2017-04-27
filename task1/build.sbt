@@ -2,7 +2,7 @@ name := "task1"
 
 version := "1.0"
 
-scalaVersion := "2.11.7"
+scalaVersion := "2.11.8"
 
 libraryDependencies += "org.scala-lang.modules" %% "scala-parser-combinators" % "1.0.4"
 libraryDependencies += "com.typesafe.play" %% "play-json" % "2.5.14"
@@ -21,3 +21,7 @@ libraryDependencies ++= Seq(
 )
 
 mainClass in Compile := Some("APIService")
+
+scalaOrganization in ThisBuild := "org.typelevel"
+
+
